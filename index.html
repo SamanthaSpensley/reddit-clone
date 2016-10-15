@@ -28,16 +28,16 @@
 
             <form class="navbar-form navbar-left" role="search">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
+                <input type="text" class="form-control" placeholder="Search" ng-model="view.search">
               </div>
             </form>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sort By<span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Votes</a></li>
-                <li><a href="#">Date</a></li>
-                <li><a href="#">Title</a></li>
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sort By {{ view.sort }}<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu" ng-model="view.sort" ng-init="view.sort='votes'; order_by=true">
+                <li ng-click="view.sort='votes'; order_by=true"><a>Votes</a></li>
+                <li ng-click="view.sort='date'; order_by=true"><a>Date</a></li>
+                <li ng-click="view.sort='title'; order_by=false"><a>Title</a></li>
               </ul>
             </li>
           </ul>
@@ -51,7 +51,6 @@
       <!-- New post form -->
         <form name="postForm" novalidate ng-submit="submitPost(postForm)" ng-show="view.showPostForm" class="form-horizontal" >
           <fieldset>
-
             <!-- New post title -->
             <div class="form-group" ng-class="{'has-success': postForm.title.$valid && postForm.title.$dirty, 'has-error': postForm.title.$invalid && postForm.title.$dirty}">
               <label for="title" class="col-lg-2 control-label">Title</label>
@@ -129,11 +128,8 @@
           </fieldset>
         </form>
 
-
-      {{ view.posts }}
-
       <!-- Display posts -->
-      <div ng-repeat="post in view.posts | orderBy: view.sortBy | filter:searchText">
+      <div ng-repeat="post in view.posts | orderBy: view.sort: order_by | filter: view.search">
         <div class="row displayPost">
           <div class="col-xs-12 col-sm-2">
             <img ng-src="{{ post.image }}" />
