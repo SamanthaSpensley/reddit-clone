@@ -45,7 +45,6 @@ app.controller('MainController', function($scope){
       showComments: false,
       showCommentForm: false
     });
-    $scope.togglePostForm();
     form.$setPristine();
     $scope.view.title = '';
     $scope.view.author = '';
@@ -57,12 +56,12 @@ app.controller('MainController', function($scope){
     $scope.view.showPostForm = !$scope.view.showPostForm
   }
 
-  $scope.addVote = function(index) {
-    $scope.view.post[index].votes++;
+  $scope.addVote = function(post) {
+    post.votes++;
   }
 
-  $scope.removeVote = function(index) {
-    $scope.view.post[index].votes--;
+  $scope.removeVote = function(post) {
+    post.votes--;
   }
 
 });

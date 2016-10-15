@@ -26,6 +26,7 @@ img {
   /*margin-left: 1vw;*/
 }
 
+/* ----- Post Rating ----- */
 .likes {
    background: #6aaf6a;
    color: #fff;
@@ -42,6 +43,7 @@ img {
    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
    transition: background 500ms;
 }
+
 .dislikes {
    background: #F65A5B;
    color: #fff;
@@ -70,6 +72,15 @@ img {
   background: rgba(246, 90, 91, 0.25);
   transition: background 500ms;
 }
+
 .rating {
   margin-left: 3vw;
+}
+
+.positive {
+  color: #6aaf6a;
+}
+
+.negative {
+  color: #F65A5B;
 }
