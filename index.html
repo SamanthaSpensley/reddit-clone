@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html ng-app="reddit">
+  <head>
+    <meta charset="utf-8">
+    <title>Reddit Clone</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css" rel="stylesheet" integrity="sha384-gv0oNvwnqzF6ULI9TVsSmnULNb3zasNysvWwfT/s4l8k5I+g6oFz9dye0wg3rQ2Q" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="main.css" />
+  </head>
+  <body ng-controller="MainController">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Reddit Clone</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#" ng-click="togglePostForm()">Submit Post</a></li>
+
+            <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+            </form>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sort By<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Votes</a></li>
+                <li><a href="#">Date</a></li>
+                <li><a href="#">Title</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Body -->
+    <main class="container">
+
+      <!-- New post form -->
+        <form name="postForm" novalidate ng-submit="submitPost(postForm)" ng-show="view.showPostForm" class="form-horizontal" >
+          <fieldset>
+
+            <!-- New post title -->
+            <div class="form-group" ng-class="{'has-success': postForm.title.$valid && postForm.title.$dirty, 'has-error': postForm.title.$invalid && postForm.title.$dirty}">
+              <label for="title" class="col-lg-2 control-label">Title</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" name="title" id="title" placeholder="Enter a title"
+                  ng-model="view.title"
+                  ng-minlength=3
+                  ng-maxlength=50
+                  required />
+              </div>
+              <!-- Title validation -->
+              <div class="error-container col-xs-8" ng-show="postForm.title.$dirty && postForm.title.$invalid">
+                <span class="error" ng-show="postForm.title.$error.required">A title is required. Please enter a title.</span>
+                <span class="error" ng-show="postForm.title.$error.minlength">Your title must be at least 3 characters.</span>
+                <span class="error" ng-show="postForm.title.$error.maxlength">Your title can be no longer than 50 characters.</span>
+              </div>
+            </div>
+
+            <!-- New post author -->
+        <div class="form-group" ng-class="{'has-success': postForm.author.$valid && postForm.author.$dirty, 'has-error': postForm.author.$invalid && postForm.author.$dirty}">
+              <label for="author" class="col-lg-2 control-label">Author</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" name="author" id="author" placeholder="Enter an author"
+                  ng-model="view.author"
+                  ng-minlength=3
+                  ng-maxlength=50
+                  required />
+              </div>
+              <!-- Author validation -->
+              <div class="error-container col-xs-8" ng-show="postForm.author.$dirty && postForm.author.$invalid">
+                <span class="error" ng-show="postForm.author.$error.required">An author name is required. Please enter a name.</span>
+                <span class="error" ng-show="postForm.author.$error.minlength">Author name must be at least 3 characters.</span>
+                <span class="error" ng-show="postForm.author.$error.maxlength">Author name can be no longer than 50 characters.</span>
+              </div>
+            </div>
+
+            <!-- New post image URL -->
+            <div class="form-group" ng-class="{'has-success': postForm.image.$valid && postForm.image.$dirty, 'has-error': postForm.image.$invalid && postForm.image.$dirty}">
+              <label for="image" class="col-lg-2 control-label">Image URL</label>
+              <div class="col-lg-10">
+                <input type="url" class="form-control" name="image" id="image" placeholder="Enter an image URL"
+                  ng-model="view.image"
+                  required />
+              </div>
+              <!-- Image URL validation -->
+              <div class="error-container col-xs-8" ng-show="postForm.image.$dirty && postForm.image.$invalid">
+                <span class="error" ng-show="postForm.image.$error.required">An image name is required. Please enter an image URL.</span>
+              </div>
+            </div>
+
+            <!-- New post description -->
+            <div class="form-group" ng-class="{'has-success': postForm.description.$valid && postForm.description.$dirty, 'has-error': postForm.description.$invalid && postForm.description.$dirty}">
+              <label for="description" class="col-lg-2 control-label">Description</label>
+              <div class="col-lg-10">
+                <textarea class="form-control" name="description" id="description" placeholder="Enter a description"
+                  ng-model="view.description"
+                  ng-minlength=3
+                  ng-maxlength=500
+                  required></textarea>
+              </div>
+              <!-- Description validation -->
+              <div class="error-container col-xs-8" ng-show="postForm.description.$dirty && postForm.description.$invalid">
+                <span class="error" ng-show="postForm.description.$error.required">An description is required. Please enter a description.</span>
+                <span class="error" ng-show="postForm.description.$error.minlength">Description must be at least 3 characters.</span>
+                <span class="error" ng-show="postForm.description.$error.maxlength">Description can be no longer than 500 characters.</span>
+              </div>
+            </div>
+
+            <!-- Submit post -->
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2">
+                <input type="submit" name="submit" value="Submit Post" class="btn btn-primary" ng-disabled="postForm.$invalid" />
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+
+      {{ view.posts }}
+
+      <!-- Display posts -->
+      <div ng-repeat="post in view.posts | orderBy: view.sortBy | filter:searchText">
+        <div class="row displayPost">
+          <div class="col-xs-12 col-sm-2">
+            <img ng-src="{{ post.image }}" />
+          </div>
+
+          <div class="col-xs-12 col-sm-10">
+            <h3 class="inline">{{ post.title }}
+              <span class="likes" ng-click="addVote($index)">+</span>
+              <span class="dislikes" ng-click="removeVote($index)">-</span>
+            </h3>
+            <h4 class="inline rating"> Rating: {{ post.votes }}</h4>
+
+            <h5>By: {{ post.author }}</h5>
+            <p>{{ post.description }}</p>
+
+            <div class="row">
+              <h5 class="inline"><i class="fa fa-calendar" aria-hidden="true"> {{ post.date }}</i></h5> |
+              <h5 class="inline"><i class="fa fa-comment" aria-hidden="true"></i>
+                <ng-pluralize count="post.comments.length"
+                  when="{'1': '{} Comment',
+                  'other': '{} Comments'}">
+                </ng-pluralize></h5> |
+              <h5 class="inline"><i class="fa fa-pencil" aria-hidden="true"></i><a href="#" ng-click="toggleCommentForm"></a> Add Comment</h5>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
