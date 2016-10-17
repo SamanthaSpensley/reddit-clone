@@ -1,4 +1,4 @@
-var app = angular.module("reddit", []);
+var app = angular.module("reddit", ['angularMoment']);
 
 
 app.controller('MainController', function($scope){
@@ -13,11 +13,11 @@ app.controller('MainController', function($scope){
       description: "Big enough to be overwhelming, still intimate enough to feel the pulse of time, Black Canyon of the Gunnison exposes you to some of the steepest cliffs, oldest rock, and craggiest spires in North America. With two million years to work, the Gunnison River, along with the forces of weathering, has sculpted this vertical wilderness of rock, water, and sky.",
       votes: 4,
       comments: [{
-      comment_author: "Comment Author Here",
+      commentAuthor: "Sammy G",
       comment: "Blah blah blah. "
     }, {
-      comment_author: "Comment Author 2 Here",
-      comment: "Blah Blah Blah."
+      commentAuthor: "Alibaba",
+      comment: "commenting!!!"
     }]
     },
     {
@@ -67,6 +67,7 @@ app.controller('MainController', function($scope){
     });
     post.showComments = true;
     form.setPristine();
+    $scope.toggleCommentForm(post)
     $scope.view.commentAuthor = '';
     $scope.view.comment = '';
   }
@@ -81,7 +82,7 @@ app.controller('MainController', function($scope){
   }
 
   $scope.toggleComments = function(post) {
-    post.showComments = !showComents;
+    post.showComments = !post.showComments;
   }
 
   // Add/Remove Votes
