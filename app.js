@@ -12,7 +12,13 @@ app.controller('MainController', function($scope){
       image: "https://www.nps.gov/common/uploads/grid_builder/imr/crop16_9/41DEC438-1DD8-B71B-0BB27A016E404D9F.jpg?width=465&quality=90&mode=crop",
       description: "Big enough to be overwhelming, still intimate enough to feel the pulse of time, Black Canyon of the Gunnison exposes you to some of the steepest cliffs, oldest rock, and craggiest spires in North America. With two million years to work, the Gunnison River, along with the forces of weathering, has sculpted this vertical wilderness of rock, water, and sky.",
       votes: 4,
-      comments: []
+      comments: [{
+      comment_author: "Comment Author Here",
+      comment: "Blah blah blah. "
+    }, {
+      comment_author: "Comment Author 2 Here",
+      comment: "Blah Blah Blah."
+    }]
     },
     {
       title: "Colorado National Monument",
@@ -32,7 +38,8 @@ app.controller('MainController', function($scope){
     },
   ];
 
-  // functions
+  // Functions
+  // Submit New Post
   $scope.submitPost = function(form){
     $scope.view.posts.push({
       title: $scope.view.title,
@@ -52,10 +59,32 @@ app.controller('MainController', function($scope){
     $scope.view.description = '';
   };
 
-  $scope.togglePostForm = function() {
-    $scope.view.showPostForm = !$scope.view.showPostForm
+  // Submit New Comment
+  $scope.submitComment = function(post, form) {
+    post.comments.push({
+      commentAuthor: $scope.view.commentAuthor,
+      comment: $scope.view.comment,
+    });
+    post.showComments = true;
+    form.setPristine();
+    $scope.view.commentAuthor = '';
+    $scope.view.comment = '';
   }
 
+  // Show/Hide Forms and Comments
+  $scope.togglePostForm = function() {
+    $scope.view.showPostForm = !$scope.view.showPostForm;
+  }
+
+  $scope.toggleCommentForm = function(post) {
+    post.showCommentForm = !post.showCommentForm;
+  }
+
+  $scope.toggleComments = function(post) {
+    post.showComments = !showComents;
+  }
+
+  // Add/Remove Votes
   $scope.addVote = function(post) {
     post.votes++;
   }
