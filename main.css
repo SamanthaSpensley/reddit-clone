@@ -8,6 +8,9 @@
   padding-top: 2vw;
   padding-bottom: 2vw;
 }
+.displayFlex {
+  display: flex;
+}
 .commentForm {
   margin-top: 2vw;
 }
@@ -24,7 +27,11 @@ img {
   width: 90%;
   margin-top: 1vw;
 }
-
+.image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* ----- Post Rating ----- */
 .likes {
@@ -37,7 +44,9 @@ img {
    min-width: 30px;
    height: 30px;
    border-radius: 50%;
-   margin: 0 -30px 0 40px;
+   /*margin: 0 -30px 0 40px;*/
+   margin-right: 1vw;
+   margin-left: 2vw;
    text-align: center;
    font-weight: 200;
    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -53,7 +62,8 @@ img {
    min-width: 30px;
    height: 30px;
    border-radius: 50%;
-   margin: 0 -30px 0 40px;
+   /*margin: 0 -30px 0 40px;*/
+   margin-left: 1vw;
    text-align: center;
    font-weight: 200;
    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -69,12 +79,12 @@ img {
   background: rgba(246, 90, 91, 0.25);
   transition: background 500ms;
 }
-/*.rating {
-  margin-left: 3vw;
-}*/
 .positive {
   color: #6aaf6a;
 }
 .negative {
   color: #F65A5B;
+}
+.inline {
+  display: inline;
 }

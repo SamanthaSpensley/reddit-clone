@@ -61,12 +61,14 @@ app.controller('MainController', function($scope){
 
   // Submit New Comment
   $scope.submitComment = function(post, form) {
+    console.log(post);
+    console.log(form);
     post.comments.push({
       commentAuthor: $scope.view.commentAuthor,
       comment: $scope.view.comment,
     });
     post.showComments = true;
-    form.setPristine();
+    form.$setPristine();
     $scope.toggleCommentForm(post)
     $scope.view.commentAuthor = '';
     $scope.view.comment = '';
