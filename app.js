@@ -4,7 +4,7 @@ var app = angular.module("reddit", ['angularMoment']);
 app.controller('MainController', function($scope){
   $scope.view = {};
   $scope.view.showPostForm = false;
-  $scope.view.sort = 'votes';
+  // $scope.view.sort = 'votes';
   $scope.view.posts = [
     {
       title: "Black Canyon of the Gunnison",
@@ -53,6 +53,7 @@ app.controller('MainController', function($scope){
       showCommentForm: false
     });
     form.$setPristine();
+    $scope.togglePostForm();
     $scope.view.title = '';
     $scope.view.author = '';
     $scope.view.image = '';
